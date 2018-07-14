@@ -51,10 +51,27 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldRingMsgWhenCheckBookFail() throws IOException {
+    public void shouldPrintMsgWhenCheckBookHasCheckOut() throws IOException {
         when(cmd.input()).thenReturn("0").thenReturn("checkout name3").thenReturn("-1");
         mAPPController.begin();
         mAPPController.play(cmd);
         assertTrue(systemOut().contains("That book is not available."));
     }
+
+    @Test
+    public void shouldPrintMsgWhenReturnBookSuccess() throws IOException {
+        when(cmd.input()).thenReturn("0").thenReturn("return name3").thenReturn("-1");
+        mAPPController.begin();
+        mAPPController.play(cmd);
+        assertTrue(systemOut().contains("Thank you for returning the book."));
+    }
+
+    @Test
+    public void shouldPrintMsgWhenReturnBookHasReturned() throws IOException {
+        when(cmd.input()).thenReturn("0").thenReturn("return name1").thenReturn("-1");
+        mAPPController.begin();
+        mAPPController.play(cmd);
+        assertTrue(systemOut().contains("That is not a valid book to return."));
+    }
+
 }
