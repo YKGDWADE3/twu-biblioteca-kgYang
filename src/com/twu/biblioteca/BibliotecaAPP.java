@@ -19,18 +19,18 @@ public class BibliotecaAPP {
     public void play(InputCommand command) throws IOException {
         if (!isQuit) {
             showMainMenu();
-            System.out.print(parse(command.input()));
+            print(parse(command.input()));
             play(command);
         } else {
-            System.out.print(PrintMsg.QUIT_MSG);
+            print(PrintMsg.QUIT_MSG);
         }
     }
 
     private void showMainMenu(){
         for (int i = 0; i < menu.length; i++) {
-            System.out.print(i + " : " + menu[i] + "\n");
+            print(i + " : " + menu[i] + "\n");
         }
-        System.out.print(PrintMsg.QUIT_MENU_MSG);
+        print(PrintMsg.QUIT_MENU_MSG);
     }
 
     private void showBooksList() {
@@ -48,13 +48,12 @@ public class BibliotecaAPP {
     private String parse(String input) {
         if (input.equals("0")) {
             showBooksList();
-            return "\n";
         }else if (input.equals("-1")){
             isQuit = true;
-            return "\n";
         }else {
             return checkInputVaild(input);
         }
+        return "\n";
     }
 
     private String checkInputVaild(String input) {
@@ -88,5 +87,9 @@ public class BibliotecaAPP {
         mBookArrayList.add(book1);
         mBookArrayList.add(book2);
         mBookArrayList.add(book3);
+    }
+
+    private void print(String msg) {
+        System.out.print(msg);
     }
 }
