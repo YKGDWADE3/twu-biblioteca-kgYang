@@ -12,17 +12,17 @@ public class BibliotecaAPP {
     private boolean isQuit = false;
 
     public void begin(){
-        System.out.println("Welcome to the Library!");
+        System.out.print(PrintMsg.WELCOME_MSG);
         mockBooks();
     }
 
     public void play(InputCommand command) throws IOException {
         if (!isQuit) {
             showMainMenu();
-            System.out.print(parse(command.input()) + "\n");
+            System.out.print(parse(command.input()));
             play(command);
         } else {
-            System.out.print("GoodBye!\n");
+            System.out.print(PrintMsg.QUIT_MSG);
         }
     }
 
@@ -30,7 +30,7 @@ public class BibliotecaAPP {
         for (int i = 0; i < menu.length; i++) {
             System.out.print(i + " : " + menu[i] + "\n");
         }
-        System.out.print("-1 : Quit!\n\n");
+        System.out.print(PrintMsg.QUIT_MENU_MSG);
     }
 
     private void showBooksList() {
@@ -48,10 +48,10 @@ public class BibliotecaAPP {
     private String parse(String input) {
         if (input.equals("0")) {
             showBooksList();
-            return "";
+            return "\n";
         }else if (input.equals("-1")){
             isQuit = true;
-            return "";
+            return "\n";
         }else {
             return checkInputVaild(input);
         }
@@ -65,11 +65,11 @@ public class BibliotecaAPP {
                 for (Book book: mBookArrayList) {
                     if (book.equals(bookTemp) && book.isAvailable()) {
                         book.setAvailable(false);
-                        return "Thank you! Enjoy the book.";
+                        return PrintMsg.CHECKOUT_SUCCESS_MSG;
                     }
                 }
             }
-            return "That book is not available.";
+            return PrintMsg.CHECKOUT_FAIL_MSG;
         } else if (input.startsWith("return")) {
             String[] strings = input.split(" ");
             if (strings.length == 2) {
@@ -77,13 +77,13 @@ public class BibliotecaAPP {
                 for (Book book: mBookArrayList) {
                     if (book.equals(bookTemp) && !book.isAvailable()) {
                         book.setAvailable(true);
-                        return "Thank you for returning the book.";
+                        return PrintMsg.RETURN_SUCCESS_MSG;
                     }
                 }
             }
-            return "That is not a valid book to return.";
+            return PrintMsg.RETURN_FAIL_MSG;
         }else{
-            return "Select a valid option!";
+            return PrintMsg.SELECT_MENU_WRONG_MSG;
         }
     }
 
