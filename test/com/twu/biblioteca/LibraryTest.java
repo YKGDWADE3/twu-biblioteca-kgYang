@@ -30,4 +30,9 @@ public class LibraryTest {
         assertTrue(systemOut().startsWith("Welcome to the Library!"));
     }
 
+    @Test
+    public void shouldShowMainMenuAfterWelcome() {
+        mAPPController.begin();
+        assertTrue(systemOut().contains("1 : List Books\n"));
+    }
 }
