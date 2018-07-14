@@ -58,31 +58,25 @@ public class BibliotecaAPP {
     }
 
     private String checkInputVaild(String input) {
-        if (input.startsWith("checkout")) {
+        boolean isCheckout = input.startsWith("checkout");
+        boolean isReturn = input.startsWith("return");
+        if (isCheckout || isReturn) {
             String[] strings = input.split(" ");
             if (strings.length == 2) {
                 Book bookTemp = new Book(strings[1]);
                 for (Book book: mBookArrayList) {
-                    if (book.equals(bookTemp) && book.isAvailable()) {
+                    if (book.equals(bookTemp) && book.isAvailable() && isCheckout) {
                         book.setAvailable(false);
                         return PrintMsg.CHECKOUT_SUCCESS_MSG;
-                    }
-                }
-            }
-            return PrintMsg.CHECKOUT_FAIL_MSG;
-        } else if (input.startsWith("return")) {
-            String[] strings = input.split(" ");
-            if (strings.length == 2) {
-                Book bookTemp = new Book(strings[1]);
-                for (Book book: mBookArrayList) {
-                    if (book.equals(bookTemp) && !book.isAvailable()) {
+                    } else if (book.equals(bookTemp) && !book.isAvailable() && isReturn) {
                         book.setAvailable(true);
                         return PrintMsg.RETURN_SUCCESS_MSG;
                     }
                 }
             }
-            return PrintMsg.RETURN_FAIL_MSG;
-        }else{
+
+            return isCheckout ? PrintMsg.CHECKOUT_FAIL_MSG : PrintMsg.RETURN_FAIL_MSG;
+        } else{
             return PrintMsg.SELECT_MENU_WRONG_MSG;
         }
     }
