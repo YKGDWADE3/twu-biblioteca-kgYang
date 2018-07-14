@@ -33,6 +33,6 @@ public class LibraryTest {
     @Test
     public void shouldShowMainMenuAfterWelcome() {
         mAPPController.begin();
-        assertTrue(systemOut().contains("1 : List Books\n"));
+        assertTrue(systemOut().contains("0 : List Books\n"));
     }
 }
