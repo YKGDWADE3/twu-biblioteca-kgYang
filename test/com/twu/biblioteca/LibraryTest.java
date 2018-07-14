@@ -36,7 +36,7 @@ public class LibraryTest {
     @Test
     public void shouldPrintWelcome() {
         mAPPController.begin();
-        assertTrue(systemOut().startsWith("Welcome to the Library!"));
+        assertTrue(systemOut().startsWith(PrintMsg.WELCOME_MSG));
     }
 
     @Test
@@ -50,34 +50,34 @@ public class LibraryTest {
     public void shouldPrintMsgWhenCheckBookSuccess() throws IOException {
         when(cmd.input()).thenReturn("0").thenReturn("checkout name2").thenReturn("-1");
         APPStart();
-        assertTrue(systemOut().contains("Thank you! Enjoy the book."));
+        assertTrue(systemOut().contains(PrintMsg.CHECKOUT_SUCCESS_MSG));
     }
 
     @Test
     public void shouldPrintMsgWhenCheckBookHasCheckOut() throws IOException {
         when(cmd.input()).thenReturn("0").thenReturn("checkout name3").thenReturn("-1");
         APPStart();
-        assertTrue(systemOut().contains("That book is not available."));
+        assertTrue(systemOut().contains(PrintMsg.CHECKOUT_FAIL_MSG));
     }
 
     @Test
     public void shouldPrintMsgWhenReturnBookSuccess() throws IOException {
         when(cmd.input()).thenReturn("0").thenReturn("return name3").thenReturn("-1");
         APPStart();
-        assertTrue(systemOut().contains("Thank you for returning the book."));
+        assertTrue(systemOut().contains(PrintMsg.RETURN_SUCCESS_MSG));
     }
 
     @Test
     public void shouldPrintMsgWhenReturnBookHasReturned() throws IOException {
         when(cmd.input()).thenReturn("0").thenReturn("return name1").thenReturn("-1");
         APPStart();
-        assertTrue(systemOut().contains("That is not a valid book to return."));
+        assertTrue(systemOut().contains(PrintMsg.RETURN_FAIL_MSG));
     }
 
     @Test
     public void shouldPrintMsgWhenSelectMenuWrong() throws IOException {
         when(cmd.input()).thenReturn("1").thenReturn("-1");
         APPStart();
-        assertTrue(systemOut().contains("Select a valid option!"));
+        assertTrue(systemOut().contains(PrintMsg.SELECT_MENU_WRONG_MSG));
     }
 }
