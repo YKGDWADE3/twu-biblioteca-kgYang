@@ -74,4 +74,11 @@ public class LibraryTest {
         assertTrue(systemOut().contains("That is not a valid book to return."));
     }
 
+    @Test
+    public void shouldPrintMsgWhenSelectMenuWrong() throws IOException {
+        when(cmd.input()).thenReturn("1").thenReturn("-1");
+        mAPPController.begin();
+        mAPPController.play(cmd);
+        assertTrue(systemOut().contains("Select a valid option!"));
+    }
 }
