@@ -36,14 +36,24 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldShowMainMenuAfterWelcome() {
-        mAPPController.begin();
+    public void shouldShowMainMenuAfterWelcome() throws IOException {
+        when(cmd.input()).thenReturn("-1");
+        mAPPController.play(cmd);
         assertTrue(systemOut().contains("0 : List Books\n"));
     }
 
     @Test
     public void shouldPrintMsgWhenCheckBookSuccess() throws IOException {
-        when(cmd.input()).thenReturn("0").thenReturn("check name3").thenReturn("-1");
+        when(cmd.input()).thenReturn("0").thenReturn("checkout name2").thenReturn("-1");
+        mAPPController.begin();
+        mAPPController.play(cmd);
+        assertTrue(systemOut().contains("Thank you! Enjoy the book."));
+    }
+
+    @Test
+    public void shouldRingMsgWhenCheckBookFail() throws IOException {
+        when(cmd.input()).thenReturn("0").thenReturn("checkout name3").thenReturn("-1");
+        mAPPController.begin();
         mAPPController.play(cmd);
         assertTrue(systemOut().contains("That book is not available."));
     }

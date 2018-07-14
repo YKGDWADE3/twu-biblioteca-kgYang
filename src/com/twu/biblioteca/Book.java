@@ -19,7 +19,9 @@ public class Book {
         this.available = available;
     }
 
-
+    public Book(String bookName) {
+        this.bookName = bookName;
+    }
 
     public String getBookName() {
         return bookName;
