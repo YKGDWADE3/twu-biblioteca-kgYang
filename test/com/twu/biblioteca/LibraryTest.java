@@ -80,4 +80,11 @@ public class LibraryTest {
         APPStart();
         assertTrue(systemOut().contains(PrintMsg.SELECT_MENU_WRONG_MSG));
     }
+
+    @Test
+    public void shouldHaveMovieListChoiceInMenu() throws IOException {
+        when(cmd.input()).thenReturn("-1");
+        mAPPController.play(cmd);
+        assertTrue(systemOut().contains("0 : List Books\n" + "1 : List Movies\n"));
+    }
 }
