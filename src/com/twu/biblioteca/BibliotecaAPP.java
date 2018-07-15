@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class BibliotecaAPP {
 
-    private final String[] menu = {"List Books"};
+    private final String[] menu = {"List Books", "List Movies"};
 
     private ArrayList<Book> mBookArrayList = new ArrayList<Book>();
 
