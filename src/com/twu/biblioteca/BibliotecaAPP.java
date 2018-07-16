@@ -1,5 +1,8 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,11 +12,14 @@ public class BibliotecaAPP {
 
     private ArrayList<Book> mBookArrayList = new ArrayList<Book>();
 
+    private ArrayList<Movie> mMovieArrayList = new ArrayList<Movie>();
+
     private boolean isQuit = false;
 
     public void begin(){
         System.out.print(PrintMsg.WELCOME_MSG);
         mockBooks();
+        mockMovies();
     }
 
     public void play(InputCommand command) throws IOException {
@@ -43,12 +49,24 @@ public class BibliotecaAPP {
         }
     }
 
+    private void showMovieList() {
+        for (int i = 0; i < mMovieArrayList.size(); i++) {
+            if (mMovieArrayList.get(i).getAvavilable()) {
+                mMovieArrayList.get(i).printInfo();
+            } else {
+                continue;
+            }
+        }
+    }
+
 
 
     private String parse(String input) {
         if (input.equals("0")) {
             showBooksList();
-        }else if (input.equals("-1")){
+        }else if(input.equals("1")){
+            showMovieList();
+        } else if (input.equals("-1")){
             isQuit = true;
         }else {
             return checkInputVaild(input);
@@ -87,6 +105,15 @@ public class BibliotecaAPP {
         mBookArrayList.add(book1);
         mBookArrayList.add(book2);
         mBookArrayList.add(book3);
+    }
+
+    private void mockMovies() {
+        Movie movie1 = new Movie(1, "movieName1", 2018, "director1", 10,true);
+        Movie movie2 = new Movie(2, "movieName2", 2018, "director2", 10,true);
+        Movie movie3 = new Movie(3, "movieName3", 2018, "director3", 10, false);
+        mMovieArrayList.add(movie1);
+        mMovieArrayList.add(movie2);
+        mMovieArrayList.add(movie3);
     }
 
     private void print(String msg) {

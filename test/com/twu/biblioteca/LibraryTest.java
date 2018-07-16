@@ -84,14 +84,14 @@ public class LibraryTest {
     @Test
     public void shouldHaveMovieListChoiceInMenu() throws IOException {
         when(cmd.input()).thenReturn("-1");
-        mAPPController.play(cmd);
+        APPStart();
         assertTrue(systemOut().contains("0 : List Books\n" + "1 : List Movies\n"));
     }
 
     @Test
     public void shouldShowMovieListWhenChooseInMenu() throws IOException {
         when(cmd.input()).thenReturn("1").thenReturn("-1");
-        mAPPController.play(cmd);
-        assertTrue(systemOut().contains("movieName1, 2018, director1, 10\n"));
+        APPStart();
+        assertTrue(systemOut().contains("movieName1, 2018, director1, 10.\n"));
     }
 }
