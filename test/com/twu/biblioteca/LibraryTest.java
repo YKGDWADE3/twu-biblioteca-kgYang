@@ -102,4 +102,11 @@ public class LibraryTest {
         assertTrue(systemOut().contains(("0 : List Books\n" + "1 : List Movies\n" + "2 : Checkout List\n")));
 
     }
+
+    @Test
+    public void shouldReturnMsgWhenLoginSuccess() throws IOException {
+        when(cmd.input()).thenReturn("3").thenReturn("ykg-1234 123456").thenReturn("-1");
+        APPStart();
+        assertTrue(systemOut().contains(""));
+    }
 }
