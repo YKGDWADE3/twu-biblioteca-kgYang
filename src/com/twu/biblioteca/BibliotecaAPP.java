@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.model.Movie;
+import com.twu.biblioteca.model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,7 +17,8 @@ public class BibliotecaAPP {
 
     private boolean isQuit = false;
     private boolean isLogin = false;
-    private boolean isInLogin = false;
+    private boolean isInLoginProcess = false;
+    private User mUser;
 
     public void begin(){
         System.out.print(GlobalInfo.WELCOME_MSG);
@@ -26,7 +28,7 @@ public class BibliotecaAPP {
 
     public void play(InputCommand command) throws IOException {
         if (!isQuit) {
-            if (!isInLogin) {
+            if (!isInLoginProcess) {
                 showMainMenu();
                 showExtraChoiceInMenu(isLogin);
             }
@@ -80,19 +82,21 @@ public class BibliotecaAPP {
         }else if(input.equals("1")){
             showMovieList();
         } else if (input.equals("-1")){
-            if (isInLogin) {
-                isInLogin = false;
+            if (isInLoginProcess) {
+                isInLoginProcess = false;
             } else {
                 isQuit = true;
             }
 
         } else if (input.equals("2")) {
-
+            if (isLogin) {
+                return mUser.printInfo();
+            }
         } else if (input.equals("3")) {
             if (isLogin) {
                 isLogin = !isLogin;
             } else {
-                isInLogin = true;
+                isInLoginProcess = true;
                 return GlobalInfo.LOGIN_IN_HINT_MSG;
             }
         } else {
@@ -102,11 +106,12 @@ public class BibliotecaAPP {
     }
 
     private String checkInputVaild(String input) {
-        if (isInLogin) {
+        if (isInLoginProcess) {
             String[] strings = input.split(" ");
             if (strings[0].equals(GlobalInfo.USER_ACCOUNT) && strings[1].equals(GlobalInfo.USER_PASSWORD)) {
-                isInLogin = false;
+                isInLoginProcess = false;
                 isLogin = true;
+                mUser = new User(1,"YKG","123@tw.com","wuhan","9527");
                 return GlobalInfo.LOGIN_IN_SUCCESS_MSG;
             }else{
                 return GlobalInfo.LOGIN_IN_FAIL_MSG;
