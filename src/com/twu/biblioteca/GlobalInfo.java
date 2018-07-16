@@ -1,6 +1,11 @@
 package com.twu.biblioteca;
 
 public class GlobalInfo {
+    public final static String MENU_SHOW_BOOK_LIST = "0";
+    public final static String MENU_SHOW_MOVIE_LIST = "1";
+    public final static String MENU_SHOW_CHECKOUT_LIST_OR_SHOW_USER_INFO = "2";
+    public final static String MENU_LOGIN_IN_OR_OUT = "4";
+    public final static String MENU_QUIT = "-1";
     public static final String USER_ACCOUNT = "ykg-1234";
     public static final String USER_PASSWORD = "123456";
 
@@ -21,6 +26,7 @@ public class GlobalInfo {
 
     public static final String LOGIN_IN_HINT_MSG = "please submit account name and password, divide by space.\n";
     public static final String LOGIN_IN_SUCCESS_MSG = "login in success.\n";
+    public static final String LOGIN_OUT_SUCCESS_MSG = "login in success.\n";
     public static final String LOGIN_IN_FAIL_MSG = "login in fail, please check your account and password. Press -1 to cancel.\n";
 
 }
