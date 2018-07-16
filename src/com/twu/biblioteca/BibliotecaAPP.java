@@ -8,16 +8,17 @@ import java.util.ArrayList;
 
 public class BibliotecaAPP {
 
-    private final String[] menu = {"List Books", "List Movies"};
+
 
     private ArrayList<Book> mBookArrayList = new ArrayList<Book>();
 
     private ArrayList<Movie> mMovieArrayList = new ArrayList<Movie>();
 
     private boolean isQuit = false;
+    private boolean isLogin = false;
 
     public void begin(){
-        System.out.print(PrintMsg.WELCOME_MSG);
+        System.out.print(GlobalInfo.WELCOME_MSG);
         mockBooks();
         mockMovies();
     }
@@ -25,18 +26,27 @@ public class BibliotecaAPP {
     public void play(InputCommand command) throws IOException {
         if (!isQuit) {
             showMainMenu();
+            showExtraChoiceInMenu(isLogin);
             print(parse(command.input()));
             play(command);
         } else {
-            print(PrintMsg.QUIT_MSG);
+            print(GlobalInfo.QUIT_MSG);
         }
     }
 
     private void showMainMenu(){
-        for (int i = 0; i < menu.length; i++) {
-            print(i + " : " + menu[i] + "\n");
+        for (int i = 0; i < GlobalInfo.commonMenu.length; i++) {
+            print(i + " : " + GlobalInfo.commonMenu[i] + "\n");
         }
-        print(PrintMsg.QUIT_MENU_MSG);
+    }
+
+    private void showExtraChoiceInMenu(boolean isLogin) {
+        String[] temp = isLogin ? GlobalInfo.loginMenu : GlobalInfo.notLoginMenu;
+        for (int i = 0; i < temp.length; i++) {
+            print((i + GlobalInfo.commonMenu.length) + " : " + temp[i] + "\n");
+        }
+        print(GlobalInfo.QUIT_MENU_MSG);
+
     }
 
     private void showBooksList() {
@@ -84,17 +94,17 @@ public class BibliotecaAPP {
                 for (Book book: mBookArrayList) {
                     if (book.equals(bookTemp) && book.isAvailable() && isCheckout) {
                         book.setAvailable(false);
-                        return PrintMsg.CHECKOUT_SUCCESS_MSG;
+                        return GlobalInfo.CHECKOUT_SUCCESS_MSG;
                     } else if (book.equals(bookTemp) && !book.isAvailable() && isReturn) {
                         book.setAvailable(true);
-                        return PrintMsg.RETURN_SUCCESS_MSG;
+                        return GlobalInfo.RETURN_SUCCESS_MSG;
                     }
                 }
             }
 
-            return isCheckout ? PrintMsg.CHECKOUT_FAIL_MSG : PrintMsg.RETURN_FAIL_MSG;
+            return isCheckout ? GlobalInfo.CHECKOUT_FAIL_MSG : GlobalInfo.RETURN_FAIL_MSG;
         } else{
-            return PrintMsg.SELECT_MENU_WRONG_MSG;
+            return GlobalInfo.SELECT_MENU_WRONG_MSG;
         }
     }
 

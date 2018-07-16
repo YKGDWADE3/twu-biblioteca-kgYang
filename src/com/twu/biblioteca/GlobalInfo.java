@@ -1,6 +1,15 @@
 package com.twu.biblioteca;
 
-public class PrintMsg {
+public class GlobalInfo {
+    public static final String USER_NAME = "ykg-1234";
+    public static final String USER_PASSWORD = "123456";
+
+    public static final String[] commonMenu = {"List Books", "List Movies"};
+
+    public static final String[] notLoginMenu = {"checkout list"};
+
+    public static final String[] loginMenu = {"show user info"};
+
     public static final String WELCOME_MSG = "Welcome to the Library!\n";
     public static final String QUIT_MSG = "GoodBye!\n";
     public static final String QUIT_MENU_MSG = "-1 : Quit!\n\n";
