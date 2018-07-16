@@ -99,7 +99,7 @@ public class LibraryTest {
     public void shouldShowCheckOutListChoiceInMenuWhenNotLogin() throws IOException {
         when(cmd.input()).thenReturn("-1");
         APPStart();
-        assertTrue(systemOut().contains(("0 : List Books\n" + "1 : List Movies\n" + "2 : Checkout List\n")));
+        assertTrue(systemOut().contains(("0 : List Books\n" + "1 : List Movies\n" + "2 : Checkout list\n")));
 
     }
 
@@ -107,6 +107,6 @@ public class LibraryTest {
     public void shouldReturnMsgWhenLoginSuccess() throws IOException {
         when(cmd.input()).thenReturn("3").thenReturn("ykg-1234 123456").thenReturn("-1");
         APPStart();
-        assertTrue(systemOut().contains(""));
+        assertTrue(systemOut().contains(GlobalInfo.LOGIN_IN_SUCCESS_MSG));
     }
 }

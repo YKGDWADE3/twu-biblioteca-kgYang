@@ -16,6 +16,7 @@ public class BibliotecaAPP {
 
     private boolean isQuit = false;
     private boolean isLogin = false;
+    private boolean isInLogin = false;
 
     public void begin(){
         System.out.print(GlobalInfo.WELCOME_MSG);
@@ -25,8 +26,10 @@ public class BibliotecaAPP {
 
     public void play(InputCommand command) throws IOException {
         if (!isQuit) {
-            showMainMenu();
-            showExtraChoiceInMenu(isLogin);
+            if (!isInLogin) {
+                showMainMenu();
+                showExtraChoiceInMenu(isLogin);
+            }
             print(parse(command.input()));
             play(command);
         } else {
@@ -77,14 +80,38 @@ public class BibliotecaAPP {
         }else if(input.equals("1")){
             showMovieList();
         } else if (input.equals("-1")){
-            isQuit = true;
-        }else {
+            if (isInLogin) {
+                isInLogin = false;
+            } else {
+                isQuit = true;
+            }
+
+        } else if (input.equals("2")) {
+
+        } else if (input.equals("3")) {
+            if (isLogin) {
+                isLogin = !isLogin;
+            } else {
+                isInLogin = true;
+                return GlobalInfo.LOGIN_IN_HINT_MSG;
+            }
+        } else {
             return checkInputVaild(input);
         }
         return "\n";
     }
 
     private String checkInputVaild(String input) {
+        if (isInLogin) {
+            String[] strings = input.split(" ");
+            if (strings[0].equals(GlobalInfo.USER_ACCOUNT) && strings[1].equals(GlobalInfo.USER_PASSWORD)) {
+                isInLogin = false;
+                isLogin = true;
+                return GlobalInfo.LOGIN_IN_SUCCESS_MSG;
+            }else{
+                return GlobalInfo.LOGIN_IN_FAIL_MSG;
+            }
+        }
         boolean isCheckout = input.startsWith("checkout");
         boolean isReturn = input.startsWith("return");
         if (isCheckout || isReturn) {
