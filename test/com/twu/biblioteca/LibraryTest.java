@@ -94,4 +94,12 @@ public class LibraryTest {
         APPStart();
         assertTrue(systemOut().contains("movieName1, 2018, director1, 10.\n"));
     }
+
+    @Test
+    public void shouldShowCheckOutListChoiceInMenuWhenNotLogin() throws IOException {
+        when(cmd.input()).thenReturn("-1");
+        APPStart();
+        assertTrue(systemOut().contains(("0 : List Books\n" + "1 : List Movies\n" + "2 : Checkout List\n")));
+
+    }
 }
